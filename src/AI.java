@@ -4,5 +4,5 @@
  */
 public interface AI
 	{
-	public void update();
+	public void update(Snake snake);
 	}
