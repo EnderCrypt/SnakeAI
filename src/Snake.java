@@ -17,6 +17,11 @@ public class Snake
 		this.position = position;
 		snakeAI = new DefaultAI();
 		}
+	public void update()
+		{
+		// TODO: ai integration
+		// TODO: movement code
+		}
 	public void move(Point newPos)
 		{
 		body.add(0, position.getLocation());
