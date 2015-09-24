@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,11 +26,17 @@ public class Game
 		}
 	public void update()
 		{
-		// TODO: update snakes 
+		Iterator<Snake> itr = snakes.iterator();
+		while(itr.hasNext())
+			{
+			Snake snake = itr.next();
+			// TODO: update snake
+			}
 		// TODO: create random food
 		}
 	public void drawScreen()
 		{
-		// TODO: draw screen
+		// TODO: draw map
+		// TODO: draw snakes
 		}
 	}
