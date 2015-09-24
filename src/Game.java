@@ -21,7 +21,25 @@ public class Game
 	public MapObject[][] generateMap(Dimension mapSize)
 		{
 		MapObject[][] map = new MapObject[mapSize.width][mapSize.height];
-		// TODO: generate map
+		// create default map (just floors)
+		for (int x=0;x<gameSize.width;x++)
+			{
+			for (int y=0;y<gameSize.height;y++)
+				{
+				map[x][y] = MapObject.FLOOR;
+				}
+			}
+		// creates walls
+		for (int x=0;x<gameSize.width;x++)
+			{
+			map[x][0] = MapObject.WALL;
+			map[x][gameSize.height-1] = MapObject.WALL;
+			}
+		for (int y=0;y<gameSize.height;y++)
+			{
+			map[0][y] = MapObject.WALL;
+			map[gameSize.width-1][y] = MapObject.WALL;
+			}
 		return map;
 		}
 	public void update()

@@ -7,7 +7,6 @@ public class Main
 	public static void main(String[] args)
 		{
 		game = new Game(screenSize);
-		System.out.println("test");
 		while (true)
 			{
 			game.update();
