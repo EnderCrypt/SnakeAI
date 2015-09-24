@@ -10,10 +10,21 @@ public class Snake
 	{
 	Point position = new Point();
 	List<Point> body = new ArrayList<>();
+	boolean addBody = false;
 	AI snakeAI;
 	Snake(Point position)
 		{
 		this.position = position;
 		snakeAI = new DefaultAI();
+		}
+	public void move(Point newPos)
+		{
+		body.add(0, position.getLocation());
+		position = newPos;
+		
+		if (!addBody)
+			{
+			body.remove(body.size()-1);
+			}
 		}
 	}
