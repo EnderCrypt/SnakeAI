@@ -13,6 +13,8 @@ public class Game
 	Dimension gameSize;
 	MapObject[][] map;
 	List<Snake> snakes = new ArrayList<>();
+	int updateCount = 0;
+	int foodCount = 0;
 	Game(Dimension gameSize)
 		{
 		this.gameSize = gameSize;
@@ -52,15 +54,47 @@ public class Game
 		}
 	public void update()
 		{
+		updateCount++;
 		Iterator<Snake> itr = snakes.iterator();
 		while(itr.hasNext())
 			{
 			Snake snake = itr.next();
 			snake.update();
+			snake.checkFood();
 			snake.collisionCheck(itr);
 			}
-		// TODO: check if eaten food
-		// TODO: create random food
+		//if ((updateCount % 15) == 0)
+		if (foodCount < Math.max(5,snakes.size()))
+			{
+			addFood();
+			}
+		}
+	public void addFood()
+		{
+		while (true)
+			{
+			Point point = new Point((int) (Math.random()*(gameSize.width)),(int) (Math.random()*(gameSize.height)));
+			if (map[point.x][point.y].equals(MapObject.FLOOR))
+				{
+				for (Snake snake: snakes)
+					{
+					if (point.equals(snake.position))
+						{
+						continue;
+						}
+					for (Point body : snake.body)
+						{
+						if (point.equals(body))
+							{
+							continue;
+							}
+						}
+					}
+				map[point.x][point.y] = MapObject.FOOD;
+				foodCount++;
+				return;
+				}
+			}
 		}
 	public void drawScreen()
 		{
@@ -110,6 +144,6 @@ public class Game
 				}
 			System.out.println(out);
 			}
-		System.out.print("Snakes: "+(snakes.size())+" ("+bodies+" bodies)");
+		System.out.print("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" / Food: "+foodCount);
 		}
 	}

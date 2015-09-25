@@ -1,6 +1,6 @@
 /**
  * @author EnderCrypt
- * The standard default ai, still have to plan methods and parameters
+ * The most basic AI, tries to avoid other snakes
  */
 public class BasicAvoidingAI implements AI
 	{

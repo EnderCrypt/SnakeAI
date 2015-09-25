@@ -19,7 +19,7 @@ public class Snake
 		{
 		this.position = position;
 		this.game = game;
-		snakeAI = new BasicAvoidingAI();
+		snakeAI = new BasicEatingAI();
 		// start moving in random direction
 		direction = EnumSnakeDirection.getRandom();
 		}
@@ -94,8 +94,19 @@ public class Snake
 			body.remove(body.size()-1);
 			}
 		addBody = false;
+		/*
 		if (Math.random() < 0.1)
 			{
+			addBody = true;
+			}
+		*/
+		}
+	public void checkFood()
+		{
+		if (Main.game.map[position.x][position.y].equals(MapObject.FOOD))
+			{
+			Main.game.map[position.x][position.y] = MapObject.FLOOR;
+			Main.game.foodCount--;
 			addBody = true;
 			}
 		}

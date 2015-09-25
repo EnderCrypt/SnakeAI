@@ -2,7 +2,7 @@ import java.awt.Point;
 
 /**
  * @author EnderCrypt
- * The standard default ai, still have to plan methods and parameters
+ * Standard eating AI, basic avoidant techniques, tries to spy for food 20 tiles to the left and right
  */
 public class BasicEatingAI implements AI
 	{

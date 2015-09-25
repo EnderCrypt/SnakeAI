@@ -22,6 +22,14 @@ public enum EnumSnakeDirection
 		int index = (int)(Math.random()*enums.length);
 		return enums[index];
 		}
+	public int getX()
+		{
+		return movement.x;
+		}
+	public int getY()
+		{
+		return movement.y;
+		}
 	public EnumSnakeDirection getLeft()
 		{
 		int movementIndex = this.ordinal()+1;
