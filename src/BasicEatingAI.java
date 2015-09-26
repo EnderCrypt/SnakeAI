@@ -43,6 +43,7 @@ public class BasicEatingAI implements AI
 					if (Main.game.map[leftPoint.x][leftPoint.y].equals(MapObject.FOOD))
 						{
 						snake.direction = leftDir;
+						return;
 						}
 					if (Main.game.map[leftPoint.x][leftPoint.y].equals(MapObject.WALL))
 						{
@@ -55,6 +56,7 @@ public class BasicEatingAI implements AI
 					if (Main.game.map[rightPoint.x][rightPoint.y].equals(MapObject.FOOD))
 						{
 						snake.direction = rightDir;
+						return;
 						}
 					if (Main.game.map[rightPoint.x][rightPoint.y].equals(MapObject.WALL))
 						{
