@@ -15,11 +15,13 @@ public class Game
 	List<Snake> snakes = new ArrayList<>();
 	int updateCount = 0;
 	int foodCount = 0;
+	long updateTime = 0;
+	long drawTime = 0;
 	Game(Dimension gameSize)
 		{
 		this.gameSize = gameSize;
 		map = generateMap(gameSize);
-		while (snakes.size() < 100)
+		while (snakes.size() < 20)
 			{
 			Point position = new Point((int)(Math.random()*gameSize.width),(int)(Math.random()*gameSize.height));
 			if (map[position.x][position.y].equals(MapObject.FLOOR))
@@ -54,6 +56,7 @@ public class Game
 		}
 	public void update()
 		{
+		updateTime = System.currentTimeMillis();
 		updateCount++;
 		Iterator<Snake> itr = snakes.iterator();
 		while(itr.hasNext())
@@ -63,11 +66,11 @@ public class Game
 			snake.checkFood();
 			snake.collisionCheck(itr);
 			}
-		//if ((updateCount % 15) == 0)
 		if (foodCount < Math.max(5,snakes.size()))
 			{
 			addFood();
 			}
+		updateTime = System.currentTimeMillis()-updateTime;
 		}
 	public void addFood()
 		{
@@ -98,6 +101,7 @@ public class Game
 		}
 	public void drawScreen()
 		{
+		drawTime = System.currentTimeMillis();
 		int bodies = 0;
 		int longestBody = 0;
 		// create 2D array for all snakes to save efficiency
@@ -150,8 +154,9 @@ public class Game
 				}
 			System.out.println(out);
 			}
+		drawTime = System.currentTimeMillis()-drawTime;
 		double exactAvg = (double)bodies/(double)snakes.size();
 		double avg = Math.round(exactAvg*10.0)/10.0;
-		System.out.print("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" (Longest: "+longestBody+", Avg: "+avg+") / Food: "+foodCount);
+		System.out.print("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" (Longest: "+longestBody+", Avg: "+avg+") / Food: "+foodCount+" / updateDelta: "+updateTime+" Ms / drawDelta: "+drawTime+" Ms");
 		}
 	}
