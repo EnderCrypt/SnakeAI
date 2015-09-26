@@ -19,7 +19,7 @@ public class Game
 		{
 		this.gameSize = gameSize;
 		map = generateMap(gameSize);
-		while (snakes.size() < 10)
+		while (snakes.size() < 100)
 			{
 			Point position = new Point((int)(Math.random()*gameSize.width),(int)(Math.random()*gameSize.height));
 			if (map[position.x][position.y].equals(MapObject.FLOOR))
@@ -99,11 +99,17 @@ public class Game
 	public void drawScreen()
 		{
 		int bodies = 0;
+		int longestBody = 0;
 		// create 2D array for all snakes to save efficiency
 		int[][] snakeMap = new int[gameSize.width][gameSize.height];
 		for (Snake snake: snakes)
 			{
-			bodies += snake.body.size();
+			int size = snake.body.size();
+			bodies += size;
+			if (size > longestBody)
+				{
+				longestBody = size;
+				}
 			snakeMap[snake.position.x][snake.position.y] = 1;
 			for (Point point : snake.body)
 				{
@@ -144,6 +150,8 @@ public class Game
 				}
 			System.out.println(out);
 			}
-		System.out.print("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" / Food: "+foodCount);
+		double exactAvg = (double)bodies/(double)snakes.size();
+		double avg = Math.round(exactAvg*10.0)/10.0;
+		System.out.print("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" (Longest: "+longestBody+", Avg: "+avg+") / Food: "+foodCount);
 		}
 	}

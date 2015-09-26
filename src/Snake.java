@@ -15,12 +15,12 @@ public class Snake
 	boolean addBody = true;
 	AI snakeAI;
 	Game game;
-	double chanceBodyToFood = 0.5;
+	double dropChance = 0.25; // chance of each body part converting to food on death
 	Snake(Point position, Game game)
 		{
 		this.position = position;
 		this.game = game;
-		snakeAI = new ImprovedEatingAI();
+		snakeAI = new ParanoidImprovedEatingAI();
 		// start moving in random direction
 		direction = EnumSnakeDirection.getRandom();
 		}
@@ -64,9 +64,10 @@ public class Snake
 		{
 		for (Point point: body)
 			{
-			if (Math.random() <= chanceBodyToFood)
+			if (Math.random() <= dropChance)
 				{
-			Main.game.map[point.x][point.y] = MapObject.FOOD;
+				Main.game.foodCount++;
+				Main.game.map[point.x][point.y] = MapObject.FOOD;
 				}
 			}
 		}
