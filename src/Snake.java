@@ -15,11 +15,12 @@ public class Snake
 	boolean addBody = true;
 	AI snakeAI;
 	Game game;
+	double chanceBodyToFood = 0.5;
 	Snake(Point position, Game game)
 		{
 		this.position = position;
 		this.game = game;
-		snakeAI = new BasicEatingAI();
+		snakeAI = new ImprovedEatingAI();
 		// start moving in random direction
 		direction = EnumSnakeDirection.getRandom();
 		}
@@ -33,6 +34,7 @@ public class Snake
 		{
 		if (Main.game.map[position.x][position.y].equals(MapObject.WALL))
 			{
+			spawnFoodAtBodies();
 			itr.remove();
 			return;
 			}
@@ -42,6 +44,7 @@ public class Snake
 				{
 				if (position.equals(snake.position))
 					{
+					spawnFoodAtBodies();
 					itr.remove();
 					return;
 					}
@@ -50,9 +53,20 @@ public class Snake
 				{
 				if (position.equals(point))
 					{
+					spawnFoodAtBodies();
 					itr.remove();
 					return;
 					}
+				}
+			}
+		}
+	public void spawnFoodAtBodies()
+		{
+		for (Point point: body)
+			{
+			if (Math.random() <= chanceBodyToFood)
+				{
+			Main.game.map[point.x][point.y] = MapObject.FOOD;
 				}
 			}
 		}
