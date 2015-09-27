@@ -18,11 +18,11 @@ public class Game
 	int foodCount = 0;
 	long updateTime = 0;
 	long drawTime = 0;
-	Game(Dimension gameSize)
+	Game(Dimension gameSize, int spawnCount)
 		{
 		this.gameSize = gameSize;
 		map = generateMap(gameSize);
-		while (snakes.size() < 20)
+		while (snakes.size() < spawnCount)
 			{
 			Point position = new Point((int)(Math.random()*gameSize.width),(int)(Math.random()*gameSize.height));
 			if (map[position.x][position.y].equals(MapObject.FLOOR))

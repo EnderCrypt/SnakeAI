@@ -8,13 +8,15 @@ import java.util.List;
 public class Main
 	{
 	static Dimension screenSize = new Dimension(180,55);
+	static int updateDelay = 50;
+	static int spawnCount = 10;
 	static Game game;
 	static BufferedOutputStream fastConsole = null;
 	public static void main(String[] args)
 		{
 		fastConsole = new BufferedOutputStream(System.out);
 		parameters(args);
-		game = new Game(screenSize);
+		game = new Game(screenSize, spawnCount);
 		while (true)
 			{
 			game.update();
@@ -27,7 +29,7 @@ public class Main
 				e.printStackTrace();
 				System.exit(1);
 				}
-			try{Thread.sleep(50);}catch(InterruptedException et){et.printStackTrace();}
+			try{Thread.sleep(updateDelay);}catch(InterruptedException et){et.printStackTrace();}
 			}
 		}
 	public static void parameters(String[] args)
@@ -40,8 +42,14 @@ public class Main
 			String input = itr.next().toLowerCase();
 			switch(input)
 				{
-				case "-s": //change screen size
+				case "-screen": //change screen size
 					screenSize = new Dimension(Integer.parseInt(itr.next()),Integer.parseInt(itr.next())); 
+				break;
+				case "-speed": //change update speed
+					updateDelay = Integer.parseInt(itr.next()); 
+				break;
+				case "-snakes": //change update speed
+					spawnCount = Integer.parseInt(itr.next()); 
 				break;
 				case "-h": //get help
 				case "--h":
@@ -50,6 +58,7 @@ public class Main
 				default:
 					System.out.println("-h help");
 					System.out.println("	lists all the help\n");
+					System.out.println("-screen, -speed, -snakes");
 					System.exit(0);
 				break;
 				}
