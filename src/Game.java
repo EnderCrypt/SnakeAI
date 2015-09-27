@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -99,7 +100,7 @@ public class Game
 				}
 			}
 		}
-	public void drawScreen()
+	public void drawScreen() throws IOException
 		{
 		drawTime = System.currentTimeMillis();
 		int bodies = 0;
@@ -121,10 +122,10 @@ public class Game
 				}
 			}
 		// draw
-		System.out.println();
+		Main.fastConsole.write('\n');
 		for (int y=0;y<gameSize.height;y++)
 			{
-			String out = "";
+			//String out = "";
 			for (int x=0;x<gameSize.width;x++)
 				{
 				MapObject tile = map[x][y];
@@ -136,27 +137,29 @@ public class Game
 							{
 							if (snakeMapInt == 1)
 								{// head
-								out = out+'o';
+								Main.fastConsole.write('o');
 								}
 							else
 								{// body
-								out = out+'.';
+								Main.fastConsole.write('.');
 								}
 							}
 						else
 							{
-							out = out+tile.getChar();
+							Main.fastConsole.write(tile.getChar());
 							}
 					break;
 					default:
-						out = out+tile.getChar();
+						Main.fastConsole.write(tile.getChar());
 					}
 				}
-			System.out.println(out);
+			Main.fastConsole.write('\n');
 			}
 		drawTime = System.currentTimeMillis()-drawTime;
 		double exactAvg = (double)bodies/(double)snakes.size();
 		double avg = Math.round(exactAvg*10.0)/10.0;
-		System.out.print("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" (Longest: "+longestBody+", Avg: "+avg+") / Food: "+foodCount+" / updateDelta: "+updateTime+" Ms / drawDelta: "+drawTime+" Ms");
+		String outData = ("Snakes: "+(snakes.size())+" / Bodies: "+bodies+" (Longest: "+longestBody+", Avg: "+avg+") / Food: "+foodCount+" / updateDelta: "+updateTime+" Ms / drawDelta: "+drawTime+" Ms");
+		Main.fastConsole.write(outData.getBytes());
+		Main.fastConsole.flush();
 		}
 	}
